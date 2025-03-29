@@ -56,7 +56,7 @@ const Dashboard = () => {
           Profile Section
         </div>
         <div className="card" onClick={() => navigate("/about-us")}>
-          About Us
+          HackMatch.ai - Hackathon Roadmap 
         </div>
       </div>
     </div>
