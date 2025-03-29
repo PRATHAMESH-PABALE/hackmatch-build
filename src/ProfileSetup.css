@@ -1,0 +1,38 @@
+.profile-container {
+    max-width: 500px;
+    margin: auto;
+    background: black;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    color: white;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input, textarea, select {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #00ff00;
+    background: black;
+    color: white;
+  }
+  
+  button {
+    background-color: #00ff00;
+    color: black;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  

@@ -1,0 +1,78 @@
+.dashboard-container {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+    color: rgb(65, 235, 8);
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  }
+  
+  .profile-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #00ff00;
+  }
+  
+  .logout-box {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: black;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  }
+  
+  .logout-box button {
+    background-color: #f32809;
+    color: black;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .card {
+    width: 250px;
+    height: 150px;
+    background: rgb(248, 246, 246);
+    color: rgb(52, 181, 9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(10, 245, 10, 0.3);
+    transition: transform 0.3s;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(215, 239, 215, 0.5);
+  }
+  
