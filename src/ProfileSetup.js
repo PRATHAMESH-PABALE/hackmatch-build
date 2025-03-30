@@ -1,71 +1,120 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "./firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import "./ProfileSetup.css";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 const Profile = () => {
-  const user = auth.currentUser;
-  const [profile, setProfile] = useState({
-    name: user?.displayName || "",
-    email: user?.email || "",
-    linkedIn: "",
-    gitHub: "",
-    skills: "",
-    college: "",
-    education: "",
-    yearOfStudy: "First Year",
-    projects: "",
-    hackathons: "",
-    certifications: "",
-    hackathonWinner: "",
-  });
+  const [name, setName] = useState("");
+  const email = auth.currentUser?.email || "";
+  const [college, setCollege] = useState("");
+  const [education, setEducation] = useState("");
+  const [currentYear, setCurrentYear] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [github, setGithub] = useState("");
+  const [skills, setSkills] = useState("");
+  const [projects, setProjects] = useState("");
+  const [hackathons, setHackathons] = useState("");
+  const [certifications, setCertifications] = useState("");
+  const [error, setError] = useState("");
 
+  // Fetch existing user data from Firestore
   useEffect(() => {
-    if (user) {
-      const fetchProfile = async () => {
-        const docRef = doc(db, "profiles", user.email);
-        const docSnap = await getDoc(docRef);
+    const fetchProfile = async () => {
+      if (!email) return;
 
-        if (docSnap.exists()) {
-          setProfile(docSnap.data());
-        }
-      };
+      const userRef = doc(db, "users", email);
+      const userSnap = await getDoc(userRef);
 
-      fetchProfile();
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        setName(data.name || "");
+        setCollege(data.college || "");
+        setEducation(data.education || "");
+        setCurrentYear(data.currentYear || "");
+        setLinkedin(data.linkedin || "");
+        setGithub(data.github || "");
+        setSkills(data.skills || "");
+        setProjects(data.projects || "");
+        setHackathons(data.hackathons || "");
+        setCertifications(data.certifications || "");
+      }
+    };
+
+    fetchProfile();
+  }, [email]);
+
+  // URL Validation Function
+  const validateURL = (url, type) => {
+    const linkedinPattern = /^https:\/\/(www\.)?linkedin\.com\/.*$/;
+    const githubPattern = /^https:\/\/(www\.)?github\.com\/.*$/;
+
+    if (type === "linkedin" && !linkedinPattern.test(url)) {
+      return "Enter a valid LinkedIn URL (e.g., https://www.linkedin.com/in/username)";
     }
-  }, [user]);
-
-  const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+    if (type === "github" && !githubPattern.test(url)) {
+      return "Enter a valid GitHub URL (e.g., https://github.com/username)";
+    }
+    return "";
   };
 
-  const saveProfile = async () => {
-    if (!user) return;
-    await setDoc(doc(db, "profiles", user.email), profile);
-    alert("Profile saved successfully!");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validate LinkedIn & GitHub URLs
+    const linkedinError = validateURL(linkedin, "linkedin");
+    const githubError = validateURL(github, "github");
+
+    if (linkedinError || githubError) {
+      setError(linkedinError || githubError);
+      return;
+    }
+
+    // Ensure all fields are filled
+    if (!name || !college || !education || !currentYear || !skills || !projects || !hackathons || !certifications) {
+      setError("All fields are required!");
+      return;
+    }
+
+    try {
+      const userRef = doc(db, "users", email);
+      await setDoc(userRef, { 
+        name, 
+        email, 
+        college, 
+        education, 
+        currentYear, 
+        linkedin, 
+        github, 
+        skills, 
+        projects, 
+        hackathons, 
+        certifications 
+      });
+
+      alert("Profile saved successfully!");
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      alert("Failed to save profile. Try again.");
+    }
   };
 
   return (
-    <div className="profile-container">
-      <h2>Your Profile</h2>
-      <input type="text" name="name" value={profile.name} placeholder="Full Name" onChange={handleChange} disabled />
-      <input type="email" name="email" value={profile.email} placeholder="Email" onChange={handleChange} disabled />
-      <input type="text" name="linkedIn" value={profile.linkedIn} placeholder="LinkedIn URL" onChange={handleChange} />
-      <input type="text" name="gitHub" value={profile.gitHub} placeholder="GitHub URL" onChange={handleChange} />
-      <input type="text" name="skills" value={profile.skills} placeholder="Skills (e.g. React, Firebase)" onChange={handleChange} />
-      <input type="text" name="college" value={profile.college} placeholder="College Name" onChange={handleChange} />
-      <input type="text" name="education" value={profile.education} placeholder="Education (e.g. B.Tech in CS)" onChange={handleChange} />
-      <select name="yearOfStudy" value={profile.yearOfStudy} onChange={handleChange}>
-        <option>First Year</option>
-        <option>Second Year</option>
-        <option>Third Year</option>
-        <option>Final Year</option>
-      </select>
-      <input type="text" name="projects" value={profile.projects} placeholder="Projects Worked On" onChange={handleChange} />
-      <input type="text" name="hackathons" value={profile.hackathons} placeholder="Previous Hackathons" onChange={handleChange} />
-      <input type="text" name="certifications" value={profile.certifications} placeholder="Certifications" onChange={handleChange} />
-      <input type="text" name="hackathonWinner" value={profile.hackathonWinner} placeholder="Hackathon Winner (Yes/No)" onChange={handleChange} />
-      <button onClick={saveProfile}>Save Profile</button>
+    <div>
+      <h2>Profile Setup</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input type="email" value={email} disabled />
+        <input type="text" placeholder="College Name" value={college} onChange={(e) => setCollege(e.target.value)} required />
+        <input type="text" placeholder="Education" value={education} onChange={(e) => setEducation(e.target.value)} required />
+        <input type="text" placeholder="Current Year of Study" value={currentYear} onChange={(e) => setCurrentYear(e.target.value)} required />
+        <input type="text" placeholder="LinkedIn URL" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} required />
+        <input type="text" placeholder="GitHub URL" value={github} onChange={(e) => setGithub(e.target.value)} required />
+        <input type="text" placeholder="Skills (comma-separated)" value={skills} onChange={(e) => setSkills(e.target.value)} required />
+        <textarea placeholder="Projects Worked On" value={projects} onChange={(e) => setProjects(e.target.value)} required />
+        <textarea placeholder="Previous Hackathons" value={hackathons} onChange={(e) => setHackathons(e.target.value)} required />
+        <textarea placeholder="Certifications" value={certifications} onChange={(e) => setCertifications(e.target.value)} required />
+        <button type="submit">Save Profile</button>
+      </form>
     </div>
   );
 };

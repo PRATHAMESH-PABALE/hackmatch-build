@@ -1,127 +1,107 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "./firebase";
 import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
-import "./FindTeammates.css";
 
 const FindTeammates = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [search, setSearch] = useState("");
   const [sentRequests, setSentRequests] = useState([]);
+  const loggedInUserEmail = auth.currentUser?.email;
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const querySnapshot = await getDocs(collection(db, "users"));
-      const userList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setUsers(userList);
+      try {
+        const usersCollection = collection(db, "users");
+        const usersSnapshot = await getDocs(usersCollection);
+        const userList = usersSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        // Exclude the logged-in user from the list
+        const filteredUsers = userList.filter(user => user.email !== loggedInUserEmail);
+        setUsers(filteredUsers);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
     };
 
     const fetchSentRequests = async () => {
-      const q = query(collection(db, "requests"), where("senderEmail", "==", auth.currentUser.email));
-      const querySnapshot = await getDocs(q);
-      const sentRequestList = querySnapshot.docs.map((doc) => doc.data().receiverEmail);
-      setSentRequests(sentRequestList);
+      try {
+        const requestsCollection = collection(db, "requests");
+        const q = query(requestsCollection, where("sender", "==", loggedInUserEmail));
+        const requestsSnapshot = await getDocs(q);
+        const sentRequestsList = requestsSnapshot.docs.map((doc) => doc.data().receiver);
+        setSentRequests(sentRequestsList);
+      } catch (error) {
+        console.error("Error fetching sent requests:", error);
+      }
     };
 
     fetchUsers();
     fetchSentRequests();
-  }, []);
+  }, [loggedInUserEmail]);
 
-  const sendRequest = async (receiver) => {
-    if (sentRequests.includes(receiver.email) || receiver.email === auth.currentUser.email) {
-      return; // Prevent duplicate or self requests
+  const sendRequest = async (receiverEmail) => {
+    if (sentRequests.includes(receiverEmail)) {
+      alert("Request already sent to this user!");
+      return;
     }
 
     try {
       await addDoc(collection(db, "requests"), {
-        senderName: auth.currentUser.displayName,
-        senderEmail: auth.currentUser.email,
-        receiverName: receiver.name,
-        receiverEmail: receiver.email,
-        status: "Pending",
+        sender: loggedInUserEmail,
+        receiver: receiverEmail,
+        status: "pending",
       });
 
-      setSentRequests([...sentRequests, receiver.email]); // Update UI instantly
+      // Update sent requests state
+      setSentRequests([...sentRequests, receiverEmail]);
+      alert("Request sent successfully!");
     } catch (error) {
       console.error("Error sending request:", error);
     }
   };
 
   return (
-    <div className="find-teammates-container">
+    <div>
       <h2>Find Your Teammates</h2>
-      <input
-        type="text"
-        placeholder="Search by name or skill..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+      <input 
+        type="text" 
+        placeholder="Search by name or skill..." 
+        value={search} 
+        onChange={(e) => setSearch(e.target.value)} 
       />
 
-      <div className="user-list">
+      <div>
         {users
-          .filter(
-            (user) =>
-              (user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                user.skills.toLowerCase().includes(searchTerm.toLowerCase())) &&
-              user.email !== auth.currentUser.email
+          .filter((user) =>
+            user.name.toLowerCase().includes(search.toLowerCase()) ||
+            user.skills.toLowerCase().includes(search.toLowerCase())
           )
           .map((user) => (
-            <div key={user.id} className="user-card" onClick={() => setSelectedUser(user)}>
+            <div key={user.id} className="user-card">
               <h3>{user.name}</h3>
-              <p>
-                <strong>Skills:</strong> {user.skills}
-              </p>
+              <p><strong>Email:</strong> {user.email}</p>
+              <p><strong>College:</strong> {user.college}</p>
+              <p><strong>Education:</strong> {user.education}</p>
+              <p><strong>Current Year:</strong> {user.currentYear}</p>
+              <p><strong>Skills:</strong> {user.skills}</p>
+              <p><strong>Projects:</strong> {user.projects}</p>
+              <p><strong>Hackathons:</strong> {user.hackathons}</p>
+              <p><strong>Certifications:</strong> {user.certifications}</p>
+              <p><strong>LinkedIn:</strong> <a href={user.linkedin} target="_blank" rel="noopener noreferrer">View Profile</a></p>
+              <p><strong>GitHub:</strong> <a href={user.github} target="_blank" rel="noopener noreferrer">View Profile</a></p>
+              
+              <button 
+                onClick={() => sendRequest(user.email)}
+                disabled={sentRequests.includes(user.email)}
+              >
+                {sentRequests.includes(user.email) ? "Request Sent" : "Send Request"}
+              </button>
             </div>
           ))}
       </div>
-
-      {selectedUser && (
-        <div className="user-modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setSelectedUser(null)}>
-              &times;
-            </span>
-            <h2>{selectedUser.name}</h2>
-            <p>
-              <strong>Email:</strong> {selectedUser.email}
-            </p>
-            <p>
-              <strong>Skills:</strong> {selectedUser.skills}
-            </p>
-            <p>
-              <strong>LinkedIn:</strong>{" "}
-              <a href={selectedUser.linkedin} target="_blank" rel="noopener noreferrer">
-                {selectedUser.linkedin}
-              </a>
-            </p>
-            <p>
-              <strong>GitHub:</strong>{" "}
-              <a href={selectedUser.github} target="_blank" rel="noopener noreferrer">
-                {selectedUser.github}
-              </a>
-            </p>
-            <p>
-              <strong>Projects Worked On:</strong> {selectedUser.projects}
-            </p>
-            <p>
-              <strong>Previous Hackathons:</strong> {selectedUser.hackathons}
-            </p>
-            <p>
-              <strong>Certifications:</strong> {selectedUser.certifications}
-            </p>
-            <p>
-              <strong>Hackathon Winner:</strong> {selectedUser.hackathonWinner}
-            </p>
-            <button
-              className="send-request-btn"
-              onClick={() => sendRequest(selectedUser)}
-              disabled={sentRequests.includes(selectedUser.email)}
-            >
-              {sentRequests.includes(selectedUser.email) ? "Request Sent" : "Send Request"}
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
