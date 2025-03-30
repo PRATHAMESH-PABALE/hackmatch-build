@@ -6,6 +6,7 @@ import "./Dashboard.css";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
+  const [showLogout, setShowLogout] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,34 +30,47 @@ const Dashboard = () => {
     <div className="dashboard-container">
       {user && (
         <header className="dashboard-header">
-          <img
-            src={user.photoURL}
-            alt="User Profile"
-            className="profile-pic"
-            onClick={handleLogout}
-          />
-          <h2>Hello, {user.displayName}</h2>
+          <div className="profile-section">
+            <img
+              src={user.photoURL}
+              alt="User Profile"
+              className="profile-pic"
+              onClick={() => setShowLogout(!showLogout)}
+            />
+            {showLogout && (
+              <div className="logout-box">
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+            )}
+            <h2 className="user-name">Hello, {user.displayName}</h2>
+          </div>
         </header>
       )}
 
-      <div className="dashboard-cards">
+      <div className="card-container">
         <div className="card" onClick={() => navigate("/find-teammates")}>
-          Find Your Teammates
+          <img src="/images/find-teammates.png" alt="Find Teammates" />
+          <p>Find Your Teammates</p>
         </div>
         <div className="card" onClick={() => navigate("/connections")}>
-          Your Connections
+          <img src="/images/connections.png" alt="Connections" />
+          <p>Your Connections</p>
         </div>
         <div className="card" onClick={() => navigate("/groups")}>
-          Your Groups
+          <img src="/images/groups.png" alt="Groups" />
+          <p>Your Groups</p>
         </div>
         <div className="card" onClick={() => navigate("/requests")}>
-          Requests
+          <img src="/images/requests.png" alt="Requests" />
+          <p>Requests</p>
         </div>
         <div className="card" onClick={() => navigate("/profile")}>
-          Profile Section
+          <img src="/images/profile.png" alt="Profile" />
+          <p>Profile Section</p>
         </div>
         <div className="card" onClick={() => navigate("/about-us")}>
-          HackMatch.ai - Hackathon Roadmap 
+          <img src="/images/about-us.png" alt="About Us" />
+          <p>HackMatch.ai - Hackathon Roadmap</p>
         </div>
       </div>
     </div>

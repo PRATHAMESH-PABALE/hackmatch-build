@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "./firebase";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import "./ProfileSetup.css";
 
 const Profile = () => {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ const Profile = () => {
   const [certifications, setCertifications] = useState("");
   const [error, setError] = useState("");
 
-  // Fetch existing user data from Firestore
+  // Fetch user profile from Firestore
   useEffect(() => {
     const fetchProfile = async () => {
       if (!email) return;
@@ -42,7 +43,7 @@ const Profile = () => {
     fetchProfile();
   }, [email]);
 
-  // URL Validation Function
+  // Validate LinkedIn & GitHub URLs
   const validateURL = (url, type) => {
     const linkedinPattern = /^https:\/\/(www\.)?linkedin\.com\/.*$/;
     const githubPattern = /^https:\/\/(www\.)?github\.com\/.*$/;
@@ -59,7 +60,6 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate LinkedIn & GitHub URLs
     const linkedinError = validateURL(linkedin, "linkedin");
     const githubError = validateURL(github, "github");
 
@@ -68,7 +68,6 @@ const Profile = () => {
       return;
     }
 
-    // Ensure all fields are filled
     if (!name || !college || !education || !currentYear || !skills || !projects || !hackathons || !certifications) {
       setError("All fields are required!");
       return;
@@ -77,17 +76,7 @@ const Profile = () => {
     try {
       const userRef = doc(db, "users", email);
       await setDoc(userRef, { 
-        name, 
-        email, 
-        college, 
-        education, 
-        currentYear, 
-        linkedin, 
-        github, 
-        skills, 
-        projects, 
-        hackathons, 
-        certifications 
+        name, email, college, education, currentYear, linkedin, github, skills, projects, hackathons, certifications 
       });
 
       alert("Profile saved successfully!");
@@ -98,9 +87,9 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <div className="profile-container">
       <h2>Profile Setup</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} required />
         <input type="email" value={email} disabled />
