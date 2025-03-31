@@ -1,7 +1,37 @@
-.connections {
-    text-align: center;
-    padding: 20px;
-    background-color: #222;
-    color: white;
-  }
-  
+.connections-container {
+  padding: 20px;
+  background-color: #121212;
+  color: white;
+  border-radius: 10px;
+}
+
+.connection-card {
+  background-color: #1f1f1f;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.team-creation {
+  margin-top: 20px;
+}
+
+.team-creation input {
+  padding: 8px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.team-creation button {
+  padding: 8px 12px;
+  background-color: #00b050;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.team-creation button:hover {
+  background-color: #008040;
+}

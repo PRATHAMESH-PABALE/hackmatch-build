@@ -1,104 +1,85 @@
-import React, { useState, useEffect } from "react";
-import { db, auth, storage } from "./firebase";
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  orderBy,
-  onSnapshot,
-  serverTimestamp,
-} from "firebase/firestore";
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+import React, { useEffect, useState } from "react";
+import { db, auth } from "./firebase";
+import { doc, getDoc, collection, addDoc, onSnapshot } from "firebase/firestore";
+import "./ChatPopup.css"; // Import CSS
 
-const ChatPopup = ({ groupId, groupName, onClose }) => {
+const ChatPopup = ({ groupId, onClose }) => {
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const loggedInUserEmail = auth.currentUser?.email;
+  const [message, setMessage] = useState("");
+  const [isMember, setIsMember] = useState(false);
+  const loggedInUser = auth.currentUser?.email;
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      const q = query(
-        collection(db, "groupMessages"),
-        where("groupId", "==", groupId),
-        orderBy("timestamp", "asc")
-      );
+    const checkMembership = async () => {
+      const groupRef = doc(db, "groups", groupId);
+      const groupSnap = await getDoc(groupRef);
 
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        setMessages(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      });
-
-      return () => unsubscribe();
+      if (groupSnap.exists()) {
+        const groupData = groupSnap.data();
+        setIsMember(groupData.members.includes(loggedInUser));
+      }
     };
 
-    fetchMessages();
-  }, [groupId]);
+    checkMembership();
+  }, [groupId, loggedInUser]);
+
+  useEffect(() => {
+    if (!isMember) return; // Prevent loading messages if user is not a member
+
+    const messagesRef = collection(db, "groups", groupId, "messages");
+    const unsubscribe = onSnapshot(messagesRef, (snapshot) => {
+      const msgs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setMessages(msgs);
+    });
+
+    return () => unsubscribe();
+  }, [groupId, isMember]);
 
   const sendMessage = async () => {
-    if (!newMessage.trim() && !selectedFile) return;
+    if (!message.trim() || !isMember) return;
 
-    try {
-      let fileUrl = null;
+    const messagesRef = collection(db, "groups", groupId, "messages");
+    await addDoc(messagesRef, {
+      sender: loggedInUser,
+      text: message,
+      timestamp: new Date(),
+    });
 
-      if (selectedFile) {
-        const fileRef = ref(storage, `groupChats/${groupId}/${selectedFile.name}`);
-        const uploadTask = uploadBytesResumable(fileRef, selectedFile);
-
-        await uploadTask;
-        fileUrl = await getDownloadURL(fileRef);
-      }
-
-      await addDoc(collection(db, "groupMessages"), {
-        groupId,
-        sender: loggedInUserEmail,
-        text: newMessage,
-        fileUrl,
-        timestamp: serverTimestamp(),
-      });
-
-      setNewMessage("");
-      setSelectedFile(null);
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
+    setMessage("");
   };
 
   return (
     <div className="chat-popup">
       <div className="chat-header">
-        <h3>{groupName} - Chat</h3>
-        <button onClick={onClose}>X</button>
+        <span>Group Chat</span>
+        <button className="close-btn" onClick={onClose}>✖</button>
       </div>
 
-      <div className="chat-messages">
-        {messages.map((msg) => (
-          <div key={msg.id} className={msg.sender === loggedInUserEmail ? "sent" : "received"}>
-            <p><strong>{msg.sender}</strong></p>
-            {msg.text && <p>{msg.text}</p>}
-            {msg.fileUrl && (
-              <p>
-                <a href={msg.fileUrl} target="_blank" rel="noopener noreferrer">View Attachment</a>
+      {isMember ? (
+        <>
+          <div className="chat-messages">
+            {messages.map((msg) => (
+              <p key={msg.id} className={msg.sender === loggedInUser ? "sent" : "received"}>
+                <strong>{msg.sender}:</strong> {msg.text}
               </p>
-            )}
+            ))}
           </div>
-        ))}
-      </div>
-
-      <div className="chat-input">
-        <input
-          type="text"
-          placeholder="Type a message..."
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <input type="file" onChange={(e) => setSelectedFile(e.target.files[0])} />
-        <button onClick={sendMessage}>Send</button>
-      </div>
+          <div className="chat-input">
+            <input
+              type="text"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Type a message..."
+            />
+            <button className="send-btn" onClick={sendMessage}>Send</button>
+          </div>
+        </>
+      ) : (
+        <p className="not-member">You are not a member of this group.</p>
+      )}
     </div>
   );
 };

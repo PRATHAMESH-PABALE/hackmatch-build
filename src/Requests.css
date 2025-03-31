@@ -1,14 +1,103 @@
 .requests-container {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .request-card {
-    background-color: #1f1f1f;
-    color: white;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
+  width: 90%;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #111; /* Dark background */
+  color: #00ff99; /* Neon green text */
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 255, 100, 0.3);
+  font-family: "Arial", sans-serif;
+  text-align: center;
+}
+
+.requests-container h2 {
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: #00ff99;
+}
+
+.no-requests {
+  font-size: 16px;
+  color: #bbb;
+}
+
+.requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.request-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a1a; /* Slightly lighter black */
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid #00ff99; /* Green outline */
+}
+
+.request-card:hover {
+  background: #222;
+  box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
+  transform: scale(1.02);
+}
+
+.request-details {
+  flex-grow: 1;
+  text-align: left;
+  padding: 5px 10px;
+}
+
+.request-details p {
+  font-size: 16px;
+  color: #bbb;
+}
+
+.request-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-btn,
+.reject-btn {
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accept-btn {
+  background: linear-gradient(90deg, #00cc66, #00ff99);
+  color: black;
+}
+
+.reject-btn {
+  background: linear-gradient(90deg, #cc0000, #ff3333);
+  color: white;
+}
+
+.accept-btn:hover {
+  background: linear-gradient(90deg, #00994d, #00cc66);
+  box-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
+}
+
+.reject-btn:hover {
+  background: linear-gradient(90deg, #990000, #cc0000);
+  box-shadow: 0 0 10px rgba(255, 50, 50, 0.5);
+}
+
+/* Accepted Status */
+.accepted {
+  font-size: 16px;
+  font-weight: bold;
+  color: #00ff99;
+}

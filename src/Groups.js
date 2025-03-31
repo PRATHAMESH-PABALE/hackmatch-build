@@ -1,59 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { db } from "./firebase";
-import { collection, getDocs, query } from "firebase/firestore";
-import ChatPopup from "./ChatPopup";
+import { db, auth } from "./firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import ChatPopup from "./ChatPopup"; // Import ChatPopup
 
 const Groups = () => {
   const [groups, setGroups] = useState([]);
-  const [openChatGroup, setOpenChatGroup] = useState(null);
+  const [selectedGroup, setSelectedGroup] = useState(null); // Track selected group
+  const loggedInUser = auth.currentUser?.email;
 
   useEffect(() => {
     const fetchGroups = async () => {
+      if (!loggedInUser) return;
+
       try {
-        const q = query(collection(db, "groups"));
-        const querySnapshot = await getDocs(q);
-        const fetchedGroups = querySnapshot.docs.map((doc) => ({
+        const groupsCollection = collection(db, "groups");
+        const q = query(groupsCollection, where("members", "array-contains", loggedInUser));
+        const snapshot = await getDocs(q);
+
+        const userGroups = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
 
-        setGroups(fetchedGroups);
+        setGroups(userGroups);
       } catch (error) {
         console.error("Error fetching groups:", error);
       }
     };
 
     fetchGroups();
-  }, []);
+  }, [loggedInUser]);
 
   return (
-    <div>
+    <div className="groups-container">
       <h2>Your Groups</h2>
-
       {groups.length === 0 ? (
-        <p>No groups created yet</p>
+        <p className="no-groups">You are not part of any groups yet.</p>
       ) : (
-        groups.map((group) => (
-          <div key={group.id} className="group-card">
-            <h3>{group.groupName}</h3>
-            <p>Members:</p>
-            <ul>
-              {group.members.map((member) => (
-                <li key={member}>{member}</li>
-              ))}
-            </ul>
-            <button onClick={() => setOpenChatGroup(group)}>Chat</button>
-          </div>
-        ))
+        <div className="groups-list">
+          {groups.map((group) => (
+            <div key={group.id} className="group-item">
+              <span className="group-name">{group.name}</span>
+              <button onClick={() => setSelectedGroup(group.id)}>Chat</button>
+            </div>
+          ))}
+        </div>
       )}
 
-      {openChatGroup && (
-        <ChatPopup
-          groupId={openChatGroup.id}
-          groupName={openChatGroup.groupName}
-          onClose={() => setOpenChatGroup(null)}
-        />
-      )}
+      {/* ChatPopup Component - Opens when a group is selected */}
+      {selectedGroup && <ChatPopup groupId={selectedGroup} onClose={() => setSelectedGroup(null)} />}
     </div>
   );
 };

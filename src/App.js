@@ -1,27 +1,32 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./Home";
-import Dashboard from ".//Dashboard";
-import ProfileSetup from "./ProfileSetup";
-import FindTeammates from "./FindTeammates";
-import Requests from "./Requests";
-import Connections from "./Connections";
-import AboutUs from "./AboutUs";
-import Groups from "./Groups";
+
+const Home = lazy(() => import("./Home"));
+const Dashboard = lazy(() => import("./Dashboard"));
+const ProfileSetup = lazy(() => import("./ProfileSetup"));
+const FindTeammates = lazy(() => import("./FindTeammates"));
+const Requests = lazy(() => import("./Requests"));
+const Connections = lazy(() => import("./Connections"));
+const AboutUs = lazy(() => import("./AboutUs"));
+const Groups = lazy(() => import("./Groups"));
+
 
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<ProfileSetup />} />
-        <Route path="/find-teammates" element={<FindTeammates />} />
-        <Route path="/requests" element={<Requests />} />
-        <Route path="/connections" element={<Connections />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/groups" element={<Groups />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<ProfileSetup />} />
+          <Route path="/find-teammates" element={<FindTeammates />} />
+          <Route path="/requests" element={<Requests />} />
+          <Route path="/connections" element={<Connections />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/groups" element={<Groups />} />
+          <Route path="*" element={<div>404 - Not Found</div>} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

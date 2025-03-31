@@ -1,0 +1,64 @@
+.roadmap-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: #121212;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.2);
+  }
+  
+  h2, h3 {
+    color: #0aff0a;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #0aff0a;
+    background: #222;
+    color: white;
+  }
+  
+  .generate-btn, .download-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    background: #0aff0a;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .generate-btn:hover, .download-btn:hover {
+    background: #00cc00;
+  }
+  
+  .roadmap-result {
+    background: #1e1e1e;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+  }
+  
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+  }
+  
