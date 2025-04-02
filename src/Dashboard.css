@@ -172,3 +172,15 @@ body, html {
     transform: translateY(0);
   }
 }
+
+.manage-work-btn {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+  height: 50px;
+}

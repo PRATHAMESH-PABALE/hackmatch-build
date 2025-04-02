@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "./firebase";
 import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
+import "./FindTeammates.css";
 
 const FindTeammates = () => {
   const [users, setUsers] = useState([]);
@@ -64,7 +65,7 @@ const FindTeammates = () => {
   };
 
   return (
-    <div>
+    <div className="find-teammates-container">
       <h2>Find Your Teammates</h2>
       <input 
         type="text" 
@@ -73,7 +74,7 @@ const FindTeammates = () => {
         onChange={(e) => setSearch(e.target.value)} 
       />
 
-      <div>
+      <div className="user-list">
         {users
           .filter((user) =>
             user.name.toLowerCase().includes(search.toLowerCase()) ||

@@ -48,31 +48,25 @@ const Dashboard = () => {
       )}
 
       <div className="card-container">
-        <div className="card" onClick={() => navigate("/find-teammates")}>
-          <img src="/images/find-teammates.png" alt="Find Teammates" />
-          <p>Find Your Teammates</p>
-        </div>
-        <div className="card" onClick={() => navigate("/connections")}>
-          <img src="/images/connections.png" alt="Connections" />
-          <p>Your Connections</p>
-        </div>
-        <div className="card" onClick={() => navigate("/groups")}>
-          <img src="/images/groups.png" alt="Groups" />
-          <p>Your Groups</p>
-        </div>
-        <div className="card" onClick={() => navigate("/requests")}>
-          <img src="/images/requests.png" alt="Requests" />
-          <p>Requests</p>
-        </div>
-        <div className="card" onClick={() => navigate("/profile")}>
-          <img src="/images/profile.png" alt="Profile" />
-          <p>Profile Section</p>
-        </div>
-        <div className="card" onClick={() => navigate("/about-us")}>
-          <img src="/images/about-us.png" alt="About Us" />
-          <p>HackMatch.ai - Hackathon Roadmap</p>
-        </div>
+        {[
+          { path: "/find-teammates", img: "/images/find-teammates.png", text: "Find Your Teammates" },
+          { path: "/connections", img: "/images/connections.png", text: "Your Connections" },
+          { path: "/groups", img: "/images/groups.png", text: "Your Groups" },
+          { path: "/requests", img: "/images/requests.png", text: "Requests" },
+          { path: "/profile", img: "/images/profile.png", text: "Profile Section" },
+          { path: "/about-us", img: "/images/about-us.png", text: "HackMatch.ai - Hackathon Roadmap" },
+        ].map((item, index) => (
+          <div key={index} className="card" onClick={() => navigate(item.path)}>
+            <img src={item.img} alt={item.text} />
+            <p>{item.text}</p>
+          </div>
+        ))}
       </div>
+
+      {/* Manage Work Status Button */}
+      <button className="manage-work-btn" onClick={() => navigate("/manage-work")}>
+        Manage Work Status
+      </button>
     </div>
   );
 };
