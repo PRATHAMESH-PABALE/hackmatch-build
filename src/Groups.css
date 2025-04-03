@@ -1,38 +1,94 @@
 .groups-container {
-  padding: 20px;
-  background-color: #121212;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #1a1a1a;
   color: white;
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.3);
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+h2 {
+  color: #0aff0a;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .groups-list {
-  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 15px;
 }
 
 .group-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1f1f1f;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
+  width: 90%;
+  background: linear-gradient(135deg, #222, #1f1f1f);
+  padding: 18px;
+  margin: 12px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.group-item:hover {
+  transform: scale(1.02);
 }
 
 .group-name {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: bold;
+  color: #0aff0a;
 }
 
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+/* General Button Styling */
 .group-item button {
-  padding: 6px 10px;
-  background-color: #00b050;
-  color: white;
-  border: none;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
+  border: none;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
 }
 
-.group-item button:hover {
-  background-color: #008040;
+/* Join Group Button */
+.join-btn {
+  background: linear-gradient(135deg, #00b050, #009640);
+  color: white;
+}
+
+.join-btn:hover {
+  background: linear-gradient(135deg, #009640, #007730);
+  transform: translateY(-2px);
+}
+
+/* Chat Button */
+.chat-btn {
+  background: linear-gradient(135deg, #0aff0a, #00cc00);
+  color: black;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-btn:hover {
+  background: linear-gradient(135deg, #00cc00, #009900);
+  transform: translateY(-2px);
+}
+
+/* Chat Icon */
+.chat-btn i {
+  font-size: 16px;
 }

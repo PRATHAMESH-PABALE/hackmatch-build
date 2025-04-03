@@ -1,64 +1,90 @@
 .roadmap-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    background: #121212;
-    color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 255, 0, 0.2);
-  }
-  
-  h2, h3 {
-    color: #0aff0a;
-    text-align: center;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #0aff0a;
-    background: #222;
-    color: white;
-  }
-  
-  .generate-btn, .download-btn {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    background: #0aff0a;
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .generate-btn:hover, .download-btn:hover {
-    background: #00cc00;
-  }
-  
-  .roadmap-result {
-    background: #1e1e1e;
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 15px;
-  }
-  
-  pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: 14px;
-  }
-  
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #1a1a1a;
+  color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2, h3 {
+  color: #0aff0a;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+input {
+  width: calc(100% - 20px); /* Keeps input aligned with container */
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #0aff0a;
+  background: #252525;
+  color: white;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+  border-color: #00cc00;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+  outline: none;
+}
+
+.generate-btn, .download-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  background: linear-gradient(135deg, #0aff0a, #00cc00);
+  color: black;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.generate-btn:hover, .download-btn:hover {
+  background: linear-gradient(135deg, #00cc00, #009900);
+  transform: translateY(-2px);
+}
+
+.roadmap-result {
+  background: #222;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
+  font-size: 15px;
+  width: 100%;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 15px;
+  font-family: 'Courier New', monospace;
+  color: #0aff0a;
+}
