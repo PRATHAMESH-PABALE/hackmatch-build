@@ -4,7 +4,7 @@
   margin: 30px auto;
   padding: 20px;
   background: #111; /* Dark background */
-  color: #00ff99; /* Neon green text */
+  color: #000000; /* Neon green text */
   border-radius: 12px;
   box-shadow: 0px 4px 15px rgba(0, 255, 100, 0.3);
   font-family: "Arial", sans-serif;
@@ -16,7 +16,7 @@
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 20px;
-  color: #00ff99;
+  color: #000000;
 }
 
 .no-requests {

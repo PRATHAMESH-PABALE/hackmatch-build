@@ -13,7 +13,7 @@
 }
 
 h2, h3 {
-  color: #0aff0a;
+  color: #00ff99;
   text-align: center;
   font-weight: 600;
   margin-bottom: 15px;
@@ -39,7 +39,7 @@ input {
   width: calc(100% - 20px); /* Keeps input aligned with container */
   padding: 12px;
   border-radius: 6px;
-  border: 1px solid #0aff0a;
+  border: 1px solid rgb(0, 0, 0);
   background: #252525;
   color: white;
   font-size: 16px;
@@ -76,7 +76,7 @@ input:focus {
   padding: 15px;
   border-radius: 10px;
   margin-top: 20px;
-  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
+  box-shadow: 0 4px 12px  ;
   font-size: 15px;
   width: 100%;
 }
@@ -86,5 +86,5 @@ pre {
   word-wrap: break-word;
   font-size: 15px;
   font-family: 'Courier New', monospace;
-  color: #0aff0a;
+  color: #00ff99;
 }

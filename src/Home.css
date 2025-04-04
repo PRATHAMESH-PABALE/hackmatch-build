@@ -1,16 +1,15 @@
 body, html {
   margin: 0;
   padding: 0;
-  background-color: black !important; /* Ensure full black */
-  color: white;
+  color: black;
   font-family: "Poppins", sans-serif;
   text-align: center;
   min-height: 100vh;
 }
 
 .home-container {
-  background-color: black;
-  color: white;
+  background-color: #f0f5a8;
+  color: rgb(0, 0, 0);
   text-align: center;
   min-height: 100vh;
   padding: 50px 20px;
@@ -27,7 +26,8 @@ body, html {
   margin: 20px auto;
   font-size: 1.2rem;
   line-height: 1.6;
-  color: #ddd;
+  color: #000000;
+  font-weight: 20px;
 }
 
 .faq-section {
