@@ -1,94 +1,248 @@
 .groups-container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 40px auto;
-  padding: 25px;
-  background: #1a1a1a;
-  color: white;
+  padding: 30px;
+  background: #ffffff;
+  color: #333333;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 255, 0, 0.3);
-  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+.groups-header {
   text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
 }
 
-h2 {
-  color: #0aff0a;
+.groups-header h2 {
+  color: #2d6cdf;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
 }
 
-.groups-list {
+.groups-subtitle {
+  color: #718096;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Loading State */
+.loading-state {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  margin-top: 15px;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
 }
 
-.group-item {
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(45, 108, 223, 0.2);
+  border-radius: 50%;
+  border-top: 4px solid #2d6cdf;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-state p {
+  color: #718096;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px dashed #e2e8f0;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  color: #4a5568;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.empty-description {
+  color: #718096;
+  font-size: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Groups List */
+.groups-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.group-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  background: linear-gradient(135deg, #222, #1f1f1f);
-  padding: 18px;
-  margin: 12px 0;
+  background: #f8fafc;
+  padding: 18px 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 255, 0, 0.2);
-  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
 }
 
-.group-item:hover {
-  transform: scale(1.02);
+.group-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+}
+
+.group-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.group-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2d6cdf, #5295ff);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(45, 108, 223, 0.3);
+}
+
+.group-details {
+  display: flex;
+  flex-direction: column;
 }
 
 .group-name {
-  font-size: 17px;
-  font-weight: bold;
-  color: #0aff0a;
+  color: #2d3748;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 4px 0;
 }
 
-.button-group {
+.members-count {
+  color: #718096;
+  font-size: 0.85rem;
+}
+
+.group-actions {
   display: flex;
   gap: 10px;
 }
 
-/* General Button Styling */
-.group-item button {
-  padding: 8px 14px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
+/* Chat Button */
+.chat-button {
+  background: linear-gradient(135deg, #2d6cdf, #5295ff);
+  color: white;
   border: none;
   border-radius: 6px;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Join Group Button */
-.join-btn {
-  background: linear-gradient(135deg, #00b050, #009640);
-  color: white;
-}
-
-.join-btn:hover {
-  background: linear-gradient(135deg, #009640, #007730);
-  transform: translateY(-2px);
-}
-
-/* Chat Button */
-.chat-btn {
-  background: linear-gradient(135deg, #0aff0a, #00cc00);
-  color: black;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(45, 108, 223, 0.3);
 }
 
-.chat-btn:hover {
-  background: linear-gradient(135deg, #00cc00, #009900);
+.chat-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.chat-button:hover {
+  background: linear-gradient(135deg, #245abb, #3a80ed);
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(45, 108, 223, 0.4);
 }
 
-/* Chat Icon */
-.chat-btn i {
-  font-size: 16px;
+.chat-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(45, 108, 223, 0.3);
+}
+
+/* ChatPopup Component Styling */
+/* The styling for the ChatPopup component would be in its own CSS file */
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .groups-container {
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+  }
+  
+  .groups-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .group-card {
+    padding: 14px;
+  }
+  
+  .group-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .group-name {
+    font-size: 1rem;
+  }
+  
+  .chat-button {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .chat-button svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .groups-container {
+    padding: 15px;
+  }
+  
+  .group-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .group-actions {
+    width: 100%;
+  }
+  
+  .chat-button {
+    width: 100%;
+    justify-content: center;
+  }
 }
