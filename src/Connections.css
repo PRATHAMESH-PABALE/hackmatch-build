@@ -1,38 +1,158 @@
+/* Enhanced Connections Component CSS */
+
 .connections-container {
-  padding: 20px;
-  background-color: #121212;
-  color: white;
-  border-radius: 10px;
-  margin-top: 30px;
+  padding: 30px;
+  background: linear-gradient(145deg, #121212, #1a1a1a);
+  color: #f5f5f5;
+  border-radius: 12px;
+  margin: 40px auto;
+  max-width: 1200px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.connections-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
 }
 
 .connection-card {
-  background-color: #1f1f1f;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
+  background: linear-gradient(145deg, #1f1f1f, #262626);
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.connection-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  border-color: #444;
+}
+
+.connection-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+
+.connection-card p {
+  margin: 5px 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #e0e0e0;
+}
+
+.connection-card p strong {
+  color: #6d64e8;
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.connection-card a {
+  color: #61dafb;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.connection-card a:hover {
+  color: #2fc8f3;
+  text-decoration: underline;
 }
 
 .team-creation {
-  margin-top: 20px;
+  margin-top: 30px;
+  background: linear-gradient(145deg, #1a1a1a, #222222);
+  padding: 25px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.team-creation h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .team-creation input {
-  padding: 8px;
-  margin-right: 10px;
-  border-radius: 5px;
-  border: none;
+  padding: 14px 16px;
+  margin-right: 15px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #252525;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  max-width: 100%;
+}
+
+.team-creation input:focus {
+  outline: none;
+  border-color: #6d64e8;
+  box-shadow: 0 2px 12px rgba(109, 100, 232, 0.2);
+}
+
+.team-creation input::placeholder {
+  color: #999;
 }
 
 .team-creation button {
-  padding: 8px 12px;
-  background-color: #00b050;
+  padding: 14px 22px;
+  background: linear-gradient(90deg, #00b050, #00c25a);
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 176, 80, 0.3);
 }
 
 .team-creation button:hover {
-  background-color: #008040;
+  background: linear-gradient(90deg, #00a048, #00b050);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 176, 80, 0.4);
+}
+
+.team-creation button:active {
+  transform: translateY(1px);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .connections-container {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  .team-creation {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .team-creation input {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .team-creation button {
+    width: 100%;
+  }
 }

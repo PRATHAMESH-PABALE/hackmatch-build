@@ -1,171 +1,395 @@
-/* Full-page dark theme background */
+/* Import font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Base styles */
 body, html {
   margin: 0;
   padding: 0;
-  background-color: #f0f5a8; /* Deep black */
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: "Poppins", sans-serif;
 }
 
-/* Main dashboard container */
+* {
+  box-sizing: border-box;
+}
+
+/* Dashboard container */
 .dashboard-container {
   width: 100%;
   min-height: 100vh;
-  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  color: #000000; /* Neon Green */
 }
 
-/* Header with Profile */
+/* Header styles */
 .dashboard-header {
-  width: 100%;
-  max-width: 1200px;
+  background: white;
+  padding: 0.7rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px;
-  background: #f0f5a8;/* Semi-transparent black */
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
 }
 
-/* Profile Section */
+.header-logo h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(90deg, #3e3be5, #6f6be8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Navigation */
+.dashboard-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-nav a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.dashboard-nav a:hover {
+  color: #3e3be5;
+}
+
+.dashboard-nav a.active {
+  color: #3e3be5;
+  border-bottom: 2px solid #3e3be5;
+}
+
+/* Profile section */
 .profile-section {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 1rem;
+  position: relative;
+}
+
+.user-info {
+  text-align: right;
+}
+
+.welcome-text {
+  display: block;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-pic-container {
+  position: relative;
 }
 
 .profile-pic {
-  width: 60px;
-  height: 60px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  border: 3px solid #000000;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
 }
 
 .profile-pic:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px #00ff99;
+  transform: scale(1.05);
+  box-shadow: 0 3px 10px rgba(62, 59, 229, 0.3);
 }
 
-/* User name */
-.user-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #000000;
+/* Logout dropdown */
+.logout-box {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: white;
+  width: 220px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
 }
 
-/* Card Grid */
+.user-email {
+  font-size: 0.85rem;
+  color: #666;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid #eee;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  background: #f3f4f6;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #ffefef;
+  color: #ff4d4d;
+}
+
+.logout-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Dashboard content */
+.dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Welcome section */
+.dashboard-welcome {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.dashboard-welcome h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.dashboard-welcome p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Card grid */
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  width: 85%;
-  max-width: 1200px;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
 }
 
-/* Card Styling */
+/* Card styling */
 .card {
-  width: 300px; /* Slightly larger */
-  height: 220px;
-  background: #f0f5a8; /* Darker tone */
-  color: #000000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background: white;
   border-radius: 12px;
-  border: 2px solid #000000;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-  text-align: center;
-  font-weight: bold;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1.5rem;
+  position: relative;
 }
 
 .card:hover {
-  transform: scale(1.07);
-  box-shadow: 0 0 20px rgb(62, 59, 229);;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(62, 59, 229, 0.15);
 }
 
-/* Image inside card */
-.card img {
-  width: 90px;
-  height: 90px;
-  margin-bottom: 10px;
+.card-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #f0f2ff;
+  margin-right: 1rem;
+  flex-shrink: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 900px) {
-  .card-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.card-icon img {
+  width: 32px;
+  height: 32px;
 }
 
-@media (max-width: 600px) {
-  .card-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .dashboard-header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .profile-section {
-    flex-direction: column;
-  }
-
-  .profile-pic {
-    width: 70px;
-    height: 70px;
-  }
-
-  .user-name {
-    font-size: 1.2rem;
-  }
+.card-content {
+  flex: 1;
 }
 
-/* Logout Button */
-.logout-box button {
-  background: linear-gradient(90deg, #ff4d4d, #ff1a1a); /* Red gradient */
-  color: white;
-  padding: 12px 25px;
-  border: none;
+.card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.4rem 0;
+  color: #333;
+}
+
+.card p {
+  font-size: 0.85rem;
+  margin: 0;
+  color: #666;
+}
+
+.card-arrow {
+  width: 24px;
+  height: 24px;
+  color: #3e3be5;
+  transition: transform 0.2s ease;
+}
+
+.card:hover .card-arrow {
+  transform: translateX(4px);
+}
+
+.card-arrow svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Upcoming hackathons section */
+.upcoming-hackathons {
+  margin-bottom: 3rem;
+}
+
+.upcoming-hackathons h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.hackathon-scroll {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  padding: 0.5rem 0.5rem 1.5rem 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #6f6be8 #f0f2ff;
+}
+
+.hackathon-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.hackathon-scroll::-webkit-scrollbar-track {
+  background: #f0f2ff;
+  border-radius: 10px;
+}
+
+.hackathon-scroll::-webkit-scrollbar-thumb {
+  background: #6f6be8;
+  border-radius: 10px;
+}
+
+.hackathon-card {
+  flex: 0 0 auto;
+  width: 280px;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.hackathon-date {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: #f0f2ff;
+  color: #3e3be5;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+
+.hackathon-card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.hackathon-card p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0 0 1rem 0;
+}
+
+.hackathon-card button {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: #3e3be5;
+  border: 1px solid #3e3be5;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
   cursor: pointer;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: all 0.2s ease;
 }
 
-.logout-box button:hover {
-  background: linear-gradient(90deg, #cc0000, #ff0000);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+.hackathon-card button:hover {
+  background: #3e3be5;
+  color: white;
 }
 
-/* Smooth Fade-in Effect */
-.dashboard-container, .dashboard-header, .card-container, .card {
-  animation: fadeIn 0.8s ease-in-out;
+/* Footer */
+.dashboard-footer {
+  background: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+  font-size: 0.85rem;
+  color: #666;
 }
 
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: #3e3be5;
+}
+
+/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -173,14 +397,72 @@ body, html {
   }
 }
 
-.manage-work-btn {
-  margin-top: 20px;
-  padding: 10px 15px;
-  background: rgb(62, 59, 229);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 200px;
-  height: 50px;
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .card-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 0.7rem 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .dashboard-nav {
+    order: 3;
+    width: 100%;
+    margin-top: 1rem;
+    overflow-x: auto;
+  }
+  
+  .dashboard-nav ul {
+    width: max-content;
+  }
+  
+  .dashboard-content {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .card-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-welcome h2 {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-welcome p {
+    font-size: 1rem;
+  }
+  
+  .profile-section {
+    gap: 0.5rem;
+  }
+  
+  .user-info {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo h1 {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard-nav ul {
+    gap: 1rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .hackathon-card {
+    width: 240px;
+    padding: 1rem;
+  }
 }
