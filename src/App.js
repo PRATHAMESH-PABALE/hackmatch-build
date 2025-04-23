@@ -1,6 +1,5 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ManageWork from "./ManageWork";
 
 const Home = lazy(() => import("./Home"));
 const Dashboard = lazy(() => import("./Dashboard"));
@@ -25,7 +24,6 @@ function App() {
           <Route path="/connections" element={<Connections />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/groups" element={<Groups />} />
-          <Route path="/manage-work" element={<ManageWork />} />
         </Routes>
       </Suspense>
     </Router>

@@ -62,11 +62,6 @@ const Dashboard = () => {
           </div>
         ))}
       </div>
-
-      {/* Manage Work Status Button */}
-      <button className="manage-work-btn" onClick={() => navigate("/manage-work")}>
-        Manage Work Status
-      </button>
     </div>
   );
 };
