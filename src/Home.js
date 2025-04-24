@@ -82,7 +82,7 @@ const Home = () => {
           </div>
           <div className="hero-image-container">
             <img
-              src="/images/hackmatch1-removebg-preview.png"
+              src="/images/Asset1projecttitle.png"
               alt="Teamwork illustration"
               className="hero-image"
             />
