@@ -1,22 +1,46 @@
 .roadmap-container {
-  max-width: 600px;
-  margin: 50px auto;
+  max-width: 700px;
+  margin: 40px auto;
   padding: 30px;
-  background: #1a1a1a;
-  color: #ffffff;
+  background: #ffffff;
+  color: #333333;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  font-family: 'Poppins', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
-h2, h3 {
-  color: #00ff99;
+h2 {
+  color: #2563eb;
   text-align: center;
   font-weight: 600;
+  margin-bottom: 24px;
+  font-size: 26px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+h2:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: #2563eb;
+  border-radius: 2px;
+}
+
+h3 {
+  color: #2563eb;
+  text-align: left;
+  font-weight: 600;
   margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.form-section {
+  margin-bottom: 20px;
   width: 100%;
 }
 
@@ -29,62 +53,111 @@ h2, h3 {
 }
 
 label {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  color: #4b5563;
   width: 100%;
 }
 
 input {
-  width: calc(100% - 20px); /* Keeps input aligned with container */
-  padding: 12px;
+  width: 100%;
+  padding: 12px 14px;
   border-radius: 6px;
-  border: 1px solid rgb(0, 0, 0);
-  background: #252525;
-  color: white;
-  font-size: 16px;
-  transition: all 0.3s ease-in-out;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 15px;
+  transition: all 0.2s ease-in-out;
 }
 
 input:focus {
-  border-color: #00cc00;
-  box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
   outline: none;
+}
+
+input::placeholder {
+  color: #9ca3af;
 }
 
 .generate-btn, .download-btn {
   width: 100%;
-  padding: 12px;
+  padding: 12px 16px;
   margin-top: 15px;
   border: none;
-  background: linear-gradient(135deg, #0aff0a, #00cc00);
-  color: black;
-  font-size: 17px;
-  font-weight: bold;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .generate-btn:hover, .download-btn:hover {
-  background: linear-gradient(135deg, #00cc00, #009900);
-  transform: translateY(-2px);
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.generate-btn:active, .download-btn:active {
+  transform: translateY(0);
+}
+
+.generate-btn:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
 }
 
 .roadmap-result {
-  background: #222;
-  padding: 15px;
+  background: #f9fafb;
+  padding: 20px;
   border-radius: 10px;
-  margin-top: 20px;
-  box-shadow: 0 4px 12px  ;
-  font-size: 15px;
+  margin-top: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   width: 100%;
+  border: 1px solid #e5e7eb;
 }
 
-pre {
+.roadmap-content {
   white-space: pre-wrap;
   word-wrap: break-word;
   font-size: 15px;
-  font-family: 'Courier New', monospace;
-  color: #00ff99;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.download-btn {
+  background: #10b981;
+}
+
+.download-btn:hover {
+  background: #059669;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+@media (max-width: 768px) {
+  .roadmap-container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+  
+  h2 {
+    font-size: 22px;
+  }
+  
+  input {
+    padding: 10px 12px;
+  }
+  
+  .generate-btn, .download-btn {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
 }

@@ -93,48 +93,95 @@ const RoadmapGenerator = () => {
   return (
     <div className="roadmap-container">
       <h2>Hackathon Roadmap Generator</h2>
-      <div className="form-group">
-        <label>Problem Statement</label>
-        <input type="text" name="problemStatement" value={formData.problemStatement} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Hackathon Duration (in hours)</label>
-        <input type="number" name="duration" value={formData.duration} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Domain</label>
-        <input type="text" name="domain" value={formData.domain} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Project Idea</label>
-        <input type="text" name="projectIdea" value={formData.projectIdea} onChange={handleChange} />
-      </div>
-      <div className="form-group">
-        <label>Team Size</label>
-        <input
-          type="number"
-          name="teamSize"
-          value={formData.teamSize}
-          onChange={(e) => {
-            const newSize = parseInt(e.target.value, 10);
-            setFormData({ ...formData, teamSize: newSize, teamMembers: Array(newSize).fill("") });
-          }}
-        />
-      </div>
-      {formData.teamMembers.map((_, index) => (
-        <div className="form-group" key={index}>
-          <label>Team Member {index + 1} Expertise</label>
-          <input type="text" value={formData.teamMembers[index]} onChange={(e) => handleTeamChange(index, e.target.value)} />
+      <div className="form-section">
+        <div className="form-group">
+          <label htmlFor="problemStatement">Problem Statement</label>
+          <input 
+            type="text" 
+            id="problemStatement"
+            name="problemStatement" 
+            placeholder="Describe the problem you're trying to solve"
+            value={formData.problemStatement} 
+            onChange={handleChange} 
+          />
         </div>
-      ))}
-      <button onClick={generateRoadmap} disabled={loading} className="generate-btn">
-        {loading ? "Generating..." : "Generate Roadmap"}
-      </button>
+        <div className="form-group">
+          <label htmlFor="duration">Hackathon Duration (in hours)</label>
+          <input 
+            type="number" 
+            id="duration"
+            name="duration" 
+            placeholder="e.g., 24, 36, 48"
+            value={formData.duration} 
+            onChange={handleChange} 
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="domain">Domain</label>
+          <input 
+            type="text" 
+            id="domain"
+            name="domain" 
+            placeholder="e.g., Healthcare, Education, Finance"
+            value={formData.domain} 
+            onChange={handleChange} 
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="projectIdea">Project Idea</label>
+          <input 
+            type="text" 
+            id="projectIdea"
+            name="projectIdea" 
+            placeholder="Summarize your project idea"
+            value={formData.projectIdea} 
+            onChange={handleChange} 
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="teamSize">Team Size</label>
+          <input
+            type="number"
+            id="teamSize"
+            name="teamSize"
+            placeholder="Number of team members"
+            value={formData.teamSize}
+            onChange={(e) => {
+              const newSize = parseInt(e.target.value, 10);
+              setFormData({ ...formData, teamSize: newSize, teamMembers: Array(newSize).fill("") });
+            }}
+          />
+        </div>
+        {formData.teamMembers.map((_, index) => (
+          <div className="form-group" key={index}>
+            <label htmlFor={`member-${index}`}>Team Member {index + 1} Expertise</label>
+            <input 
+              type="text" 
+              id={`member-${index}`}
+              placeholder="e.g., Frontend, Backend, UI/UX, ML"
+              value={formData.teamMembers[index]} 
+              onChange={(e) => handleTeamChange(index, e.target.value)} 
+            />
+          </div>
+        ))}
+        <button 
+          onClick={generateRoadmap} 
+          disabled={loading} 
+          className="generate-btn"
+        >
+          {loading ? "Generating..." : "Generate Roadmap"}
+        </button>
+      </div>
+      
       {roadmap && (
         <div className="roadmap-result">
-          <h3>Generated Roadmap</h3>
-          <pre>{roadmap}</pre>
-          <button onClick={downloadPDF} className="download-btn">Download as PDF</button>
+          <h3>Your Hackathon Roadmap</h3>
+          <div className="roadmap-content">
+            {roadmap}
+          </div>
+          <button onClick={downloadPDF} className="download-btn">
+            Download as PDF
+          </button>
         </div>
       )}
     </div>
