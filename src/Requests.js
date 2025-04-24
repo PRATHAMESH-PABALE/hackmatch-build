@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db, auth } from "./firebase";
 import { collection, getDocs, updateDoc, doc, addDoc, query, where } from "firebase/firestore";
+import "./Requests.css";
 
 const Requests = () => {
   const [requests, setRequests] = useState([]);
@@ -67,23 +68,27 @@ const Requests = () => {
   };
 
   return (
-    <div>
-      <h2>Requests</h2>
+    <div className="requests-container">
+      <h2>Connection Requests</h2>
       {requests.length === 0 ? (
-        <p>No pending requests</p>
+        <p className="no-requests">No pending requests</p>
       ) : (
-        <div>
+        <div className="requests-list">
           {requests.map((request) => (
             <div key={request.id} className="request-card">
-              <p><strong>From:</strong> {request.sender}</p>
-              {request.status === "accepted" ? (
-                <p className="accepted">✅ Accepted</p>
-              ) : (
-                <>
-                  <button onClick={() => handleAccept(request.id, request.sender)}>Accept</button>
-                  <button onClick={() => handleDecline(request.id)}>Decline</button>
-                </>
-              )}
+              <div className="request-details">
+                <p><strong>From:</strong> {request.sender}</p>
+              </div>
+              <div className="request-actions">
+                {request.status === "accepted" ? (
+                  <p className="accepted">✅ Connected</p>
+                ) : (
+                  <>
+                    <button className="accept-btn" onClick={() => handleAccept(request.id, request.sender)}>Accept</button>
+                    <button className="reject-btn" onClick={() => handleDecline(request.id)}>Decline</button>
+                  </>
+                )}
+              </div>
             </div>
           ))}
         </div>

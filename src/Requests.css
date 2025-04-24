@@ -1,103 +1,131 @@
+/* Professional Light Theme for Requests Component */
 .requests-container {
   width: 90%;
   max-width: 800px;
   margin: 30px auto;
-  padding: 20px;
-  background: #111; /* Dark background */
-  color: #000000; /* Neon green text */
-  border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0, 255, 100, 0.3);
-  font-family: "Arial", sans-serif;
-  text-align: center;
+  padding: 30px;
+  background: #ffffff;
+  color: #333333;
+  border-radius: 8px;
+  box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Inter", "Segoe UI", sans-serif;
 }
 
 .requests-container h2 {
-  font-size: 22px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  color: #000000;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #2c3e50;
+  text-align: center;
 }
 
 .no-requests {
   font-size: 16px;
-  color: #bbb;
+  color: #7f8c8d;
+  text-align: center;
+  padding: 20px;
 }
 
 .requests-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .request-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1a1a1a; /* Slightly lighter black */
-  color: white;
-  padding: 15px;
-  border-radius: 8px;
-  transition: all 0.3s ease-in-out;
-  border: 2px solid #00ff99; /* Green outline */
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #3498db;
+  transition: all 0.2s ease;
 }
 
 .request-card:hover {
-  background: #222;
-  box-shadow: 0 0 10px rgba(0, 255, 100, 0.4);
-  transform: scale(1.02);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .request-details {
   flex-grow: 1;
   text-align: left;
-  padding: 5px 10px;
 }
 
 .request-details p {
-  font-size: 16px;
-  color: #bbb;
+  font-size: 15px;
+  margin: 0;
+  color: #34495e;
+}
+
+.request-details strong {
+  font-weight: 600;
+  color: #2c3e50;
 }
 
 .request-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  align-items: center;
 }
 
-.accept-btn,
-.reject-btn {
-  padding: 10px 15px;
-  border-radius: 6px;
+.accept-btn, .reject-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
   border: none;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .accept-btn {
-  background: linear-gradient(90deg, #00cc66, #00ff99);
-  color: black;
-}
-
-.reject-btn {
-  background: linear-gradient(90deg, #cc0000, #ff3333);
+  background-color: #3498db;
   color: white;
 }
 
+.reject-btn {
+  background-color: #f5f5f5;
+  color: #7f8c8d;
+  border: 1px solid #e0e0e0;
+}
+
 .accept-btn:hover {
-  background: linear-gradient(90deg, #00994d, #00cc66);
-  box-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
+  background-color: #2980b9;
 }
 
 .reject-btn:hover {
-  background: linear-gradient(90deg, #990000, #cc0000);
-  box-shadow: 0 0 10px rgba(255, 50, 50, 0.5);
+  background-color: #e5e5e5;
+  color: #34495e;
 }
 
-/* Accepted Status */
 .accepted {
-  font-size: 16px;
-  font-weight: bold;
-  color: #00ff99;
+  font-size: 15px;
+  font-weight: 500;
+  color: #27ae60;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 600px) {
+  .requests-container {
+    width: 95%;
+    padding: 20px;
+  }
+  
+  .request-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .request-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
 }
