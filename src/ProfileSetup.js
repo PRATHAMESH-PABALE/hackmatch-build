@@ -91,17 +91,133 @@ const Profile = () => {
       <h2>Profile Setup</h2>
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} required />
-        <input type="email" value={email} disabled />
-        <input type="text" placeholder="College Name" value={college} onChange={(e) => setCollege(e.target.value)} required />
-        <input type="text" placeholder="Education" value={education} onChange={(e) => setEducation(e.target.value)} required />
-        <input type="text" placeholder="Current Year of Study" value={currentYear} onChange={(e) => setCurrentYear(e.target.value)} required />
-        <input type="text" placeholder="LinkedIn URL" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} required />
-        <input type="text" placeholder="GitHub URL" value={github} onChange={(e) => setGithub(e.target.value)} required />
-        <input type="text" placeholder="Skills (comma-separated)" value={skills} onChange={(e) => setSkills(e.target.value)} required />
-        <textarea placeholder="Projects Worked On" value={projects} onChange={(e) => setProjects(e.target.value)} required />
-        <textarea placeholder="Previous Hackathons" value={hackathons} onChange={(e) => setHackathons(e.target.value)} required />
-        <textarea placeholder="Certifications" value={certifications} onChange={(e) => setCertifications(e.target.value)} required />
+        <div className="form-group">
+          <label htmlFor="name">Full Name</label>
+          <input 
+            type="text" 
+            id="name"
+            placeholder="Enter your full name" 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input 
+            type="email" 
+            id="email"
+            value={email} 
+            disabled 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="college">College Name</label>
+          <input 
+            type="text" 
+            id="college"
+            placeholder="Enter your college name" 
+            value={college} 
+            onChange={(e) => setCollege(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="education">Education</label>
+          <input 
+            type="text" 
+            id="education"
+            placeholder="Degree, specialization" 
+            value={education} 
+            onChange={(e) => setEducation(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="currentYear">Current Year of Study</label>
+          <input 
+            type="text" 
+            id="currentYear"
+            placeholder="e.g., 2nd year, Final year" 
+            value={currentYear} 
+            onChange={(e) => setCurrentYear(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="linkedin">LinkedIn Profile</label>
+          <input 
+            type="text" 
+            id="linkedin"
+            placeholder="https://www.linkedin.com/in/username" 
+            value={linkedin} 
+            onChange={(e) => setLinkedin(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="github">GitHub Profile</label>
+          <input 
+            type="text" 
+            id="github"
+            placeholder="https://github.com/username" 
+            value={github} 
+            onChange={(e) => setGithub(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="skills">Skills</label>
+          <input 
+            type="text" 
+            id="skills"
+            placeholder="Python, React, Machine Learning, etc." 
+            value={skills} 
+            onChange={(e) => setSkills(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="projects">Projects</label>
+          <textarea 
+            id="projects"
+            placeholder="Describe your key projects" 
+            value={projects} 
+            onChange={(e) => setProjects(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="hackathons">Hackathons</label>
+          <textarea 
+            id="hackathons"
+            placeholder="List the hackathons you've participated in" 
+            value={hackathons} 
+            onChange={(e) => setHackathons(e.target.value)} 
+            required 
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="certifications">Certifications</label>
+          <textarea 
+            id="certifications"
+            placeholder="List your relevant certifications" 
+            value={certifications} 
+            onChange={(e) => setCertifications(e.target.value)} 
+            required 
+          />
+        </div>
+        
         <button type="submit">Save Profile</button>
       </form>
     </div>

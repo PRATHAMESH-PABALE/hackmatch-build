@@ -1,112 +1,134 @@
-/* Profile Container */
+/* Professional Light Theme for Profile Setup */
 .profile-container {
   width: 100%;
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 25px;
-  background: #111; /* Black background */
-  color: #00ff99; /* Neon green text */
-  border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0, 255, 100, 0.3); /* Green glow effect */
-  text-align: center;
-  font-family: "Arial", sans-serif;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  color: #333333;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", "Segoe UI", sans-serif;
 }
 
 /* Header */
 .profile-container h2 {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   font-size: 24px;
-  font-weight: bold;
-  color: #00ff99;
-  text-transform: uppercase;
+  font-weight: 600;
+  color: #2c3e50;
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
 
+/* Form Group */
+.form-group {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* Labels */
+.profile-container label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #4a5568;
 }
 
 /* Input Fields & Textarea */
 .profile-container input,
 .profile-container textarea {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0px;
+  padding: 12px 14px;
   border-radius: 6px;
-  border: 2px solid #00ff99; /* Green border */
-  background: #222;
-  color: white;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #2d3748;
   font-size: 15px;
-  transition: 0.3s;
-  margin-left: -10px;
+  transition: all 0.3s ease;
 }
 
 .profile-container input:focus,
 .profile-container textarea:focus {
   outline: none;
-  border-color: #00cc66; /* Brighter green when focused */
-  box-shadow: 0 0 10px rgba(0, 255, 100, 0.5);
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
 }
 
 /* Disabled Email Input */
 .profile-container input[disabled] {
-  background: #444;
-  color: #aaa;
+  background: #f9f9f9;
+  color: #718096;
   cursor: not-allowed;
+  border: 1px solid #edf2f7;
 }
 
 /* Error Message */
 .error-message {
-  color: red;
+  color: #e53e3e;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  text-align: left;
+  padding: 8px 12px;
+  background-color: #fff5f5;
+  border-left: 3px solid #e53e3e;
+  border-radius: 4px;
 }
 
 /* Save Profile Button */
 .profile-container button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(90deg, #00cc66, #00ff99); /* Green gradient */
-  color: black;
+  background: #3498db;
+  color: white;
   border: none;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
   border-radius: 6px;
-  margin-top: 15px;
-  transition: 0.3s;
+  margin-top: 20px;
+  transition: all 0.3s ease;
 }
 
 .profile-container button:hover {
-  background: linear-gradient(90deg, #00994d, #00cc66);
-  box-shadow: 0px 4px 12px rgba(0, 255, 100, 0.5);
+  background: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
 }
 
-/* Labels */
-.profile-container label {
-  display: block;
-  text-align: left;
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 12px;
-  color: #00ff99;
+.profile-container button:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* Textarea Styling */
 .profile-container textarea {
-  min-height: 80px;
+  min-height: 100px;
   resize: vertical;
+  line-height: 1.5;
 }
 
-/* Select Input */
-.profile-container select {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 6px;
-  border: 2px solid #00ff99;
-  background: #222;
-  color: white;
-  font-size: 15px;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-container {
+    width: 90%;
+    padding: 20px;
+    margin: 20px auto;
+  }
 }
 
-.profile-container select option {
-  background: #111;
-  color: white;
+/* Placeholder styling */
+.profile-container input::placeholder,
+.profile-container textarea::placeholder {
+  color: #a0aec0;
+}
+
+/* Focus visible for accessibility */
+.profile-container input:focus-visible,
+.profile-container textarea:focus-visible,
+.profile-container button:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
 }
