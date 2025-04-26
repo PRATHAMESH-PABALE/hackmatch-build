@@ -92,8 +92,8 @@ const Dashboard = () => {
           <nav className="dashboard-nav">
             <ul>
               <li><a href="/dashboard" className="active">Dashboard</a></li>
-              <Link to="/explore">Explore</Link>
-              <Link to="/hackathons">Explore</Link>
+              <li><a href="/explore">Explore</a></li>
+              <li><a href="/hackathons">Hackathons</a></li>
               <li><a href="/resources">Resources</a></li>
             </ul>
           </nav>
