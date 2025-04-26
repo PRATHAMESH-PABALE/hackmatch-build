@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
+import { Link } from "react-router-dom";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -91,7 +92,7 @@ const Dashboard = () => {
           <nav className="dashboard-nav">
             <ul>
               <li><a href="/dashboard" className="active">Dashboard</a></li>
-              <li><a href="/explore">Explore</a></li>
+              <Link to="/explore">Explore</Link>
               <li><a href="/hackathons">Hackathons</a></li>
               <li><a href="/resources">Resources</a></li>
             </ul>
