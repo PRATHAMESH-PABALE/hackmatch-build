@@ -177,7 +177,7 @@ const Dashboard = () => {
       </div>
       
       <footer className="dashboard-footer">
-        <p>&copy; {new Date().getFullYear()} HackMatch. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Made by Prathamesh Pabale . All rights reserved.</p>
         <div className="footer-links">
           <a href="/terms">Terms</a>
           <a href="/privacy">Privacy</a>

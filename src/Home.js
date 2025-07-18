@@ -179,7 +179,7 @@ const Home = () => {
       <footer className="site-footer">
         <div className="footer-content">
           <div className="copyright">
-            <p>&copy; {new Date().getFullYear()} HackMatch. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Made By Prathamesh Pabale . All rights reserved.</p>
           </div>
         </div>
       </footer>
