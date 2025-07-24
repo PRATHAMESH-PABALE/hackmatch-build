@@ -51,7 +51,7 @@ const Profile = () => {
     if (type === "linkedin" && !linkedinPattern.test(url)) {
       return "Enter a valid LinkedIn URL (e.g., https://www.linkedin.com/in/username)";
     }
-    if (type === "github" && !githubPattern.test(url)) {
+    if (type === "github" && url && !githubPattern.test(url)) {
       return "Enter a valid GitHub URL (e.g., https://github.com/username)";
     }
     return "";
@@ -69,7 +69,7 @@ const Profile = () => {
     }
 
     if (!name || !college || !education || !currentYear || !skills || !projects || !hackathons || !certifications) {
-      setError("All fields are required!");
+      setError("Please fill all required fields (GitHub is optional).");
       return;
     }
 
@@ -169,7 +169,6 @@ const Profile = () => {
             placeholder="https://github.com/username" 
             value={github} 
             onChange={(e) => setGithub(e.target.value)} 
-            required 
           />
         </div>
         
