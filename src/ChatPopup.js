@@ -1,7 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import { db, auth } from "./firebase";
-import { doc, getDoc, collection, addDoc, onSnapshot, query, orderBy } from "firebase/firestore";
+import { doc, getDoc, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
+import CryptoJS from 'crypto-js'; // Import crypto-js
 import "./ChatPopup.css";
+
+// !!! IMPORTANT: In a real application, NEVER hardcode secret keys like this. !!!
+// Keys should be securely managed (e.g., derived from user passwords,
+// exchanged via a secure key exchange protocol, or managed by a dedicated
+// E2EE library/service like Virgil Security).
+const ENCRYPTION_SECRET_KEY = "your-super-secret-chat-key-12345";
 
 const ChatPopup = ({ groupId, onClose }) => {
   const [messages, setMessages] = useState([]);
@@ -28,7 +35,7 @@ const ChatPopup = ({ groupId, onClose }) => {
       if (groupSnap.exists()) {
         const groupData = groupSnap.data();
         setGroupName(groupData.name || "Group Chat");
-        setIsMember(groupData.members.includes(loggedInUser));
+        setIsMember(groupData.members && groupData.members.includes(loggedInUser));
       }
     };
 
@@ -36,17 +43,42 @@ const ChatPopup = ({ groupId, onClose }) => {
   }, [groupId, loggedInUser]);
 
   useEffect(() => {
-    if (!isMember) return; // Prevent loading messages if user is not a member
+    if (!isMember) return;
 
     const messagesRef = collection(db, "groups", groupId, "messages");
     const q = query(messagesRef, orderBy("timestamp", "asc"));
-    
+
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const msgs = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        timestamp: doc.data().timestamp?.toDate() || new Date(),
-      }));
+      const msgs = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        let decryptedText = "Error decrypting message"; // Default error message
+        try {
+          // Attempt to decrypt the message
+          const bytes = CryptoJS.AES.decrypt(data.encryptedText, ENCRYPTION_SECRET_KEY);
+          decryptedText = bytes.toString(CryptoJS.enc.Utf8);
+
+          // Optional: Verify integrity using the hash
+          const receivedHash = data.hashedText;
+          const calculatedHash = CryptoJS.SHA256(decryptedText).toString(CryptoJS.enc.Hex);
+
+          if (receivedHash !== calculatedHash) {
+            console.warn("Message integrity compromised! Hash mismatch.");
+            decryptedText += " (INTEGRITY WARNING!)"; // Indicate potential tampering
+          }
+
+        } catch (e) {
+          console.error("Decryption failed:", e);
+        }
+
+        return {
+          id: doc.id,
+          sender: data.sender,
+          text: decryptedText, // This is the displayed decrypted message
+          hashedText: data.hashedText, // The hash stored in Firestore (of the plaintext)
+          encryptedText: data.encryptedText, // The encrypted text stored in Firestore
+          timestamp: data.timestamp?.toDate() || new Date(),
+        };
+      });
       setMessages(msgs);
     });
 
@@ -57,11 +89,18 @@ const ChatPopup = ({ groupId, onClose }) => {
     e.preventDefault();
     if (!message.trim() || !isMember) return;
 
+    // Hash the original plaintext message (for integrity check later)
+    const hashedMessage = CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
+
+    // Encrypt the original plaintext message
+    const encryptedMessage = CryptoJS.AES.encrypt(message, ENCRYPTION_SECRET_KEY).toString();
+
     const messagesRef = collection(db, "groups", groupId, "messages");
     await addDoc(messagesRef, {
       sender: loggedInUser,
-      text: message,
-      timestamp: new Date(),
+      hashedText: hashedMessage,       // Store the hash of the PLAINTEXT
+      encryptedText: encryptedMessage,  // Store the ENCRYPTED TEXT
+      timestamp: serverTimestamp(),
     });
 
     setMessage("");
@@ -69,6 +108,9 @@ const ChatPopup = ({ groupId, onClose }) => {
 
   // Format timestamp to readable time
   const formatTime = (date) => {
+    if (!(date instanceof Date) || isNaN(date.getTime())) { // Use getTime() for robust Date check
+      return 'Invalid Date';
+    }
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
@@ -97,8 +139,8 @@ const ChatPopup = ({ groupId, onClose }) => {
               messages.map((msg) => {
                 const isSender = isOwnMessage(msg.sender);
                 return (
-                  <div 
-                    key={msg.id} 
+                  <div
+                    key={msg.id}
                     className={`message-container ${isSender ? 'sender' : 'receiver'}`}
                   >
                     {!isSender && (
@@ -106,6 +148,11 @@ const ChatPopup = ({ groupId, onClose }) => {
                     )}
                     <div className={`message ${isSender ? 'sent' : 'received'}`}>
                       <div className="message-text">{msg.text}</div>
+                      {/* Optional: Display hashed/encrypted for debugging, not for users */}
+                      {/* <div className="message-debug">
+                        Hash: {msg.hashedText}<br/>
+                        Encrypted: {msg.encryptedText.substring(0, 30)}...
+                      </div> */}
                       <div className="message-time">{formatTime(msg.timestamp)}</div>
                     </div>
                   </div>
