@@ -1,14 +1,14 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-const Home = lazy(() => import("./Home"));
-const Dashboard = lazy(() => import("./Dashboard"));
-const ProfileSetup = lazy(() => import("./ProfileSetup"));
-const FindTeammates = lazy(() => import("./FindTeammates"));
-const Requests = lazy(() => import("./Requests"));
-const Connections = lazy(() => import("./Connections"));
-const AboutUs = lazy(() => import("./AboutUs"));
-const Groups = lazy(() => import("./Groups"));
+const Home = lazy(() => import("./Home.jsx"));
+const Dashboard = lazy(() => import("./Dashboard.jsx"));
+const ProfileSetup = lazy(() => import("./ProfileSetup.jsx"));
+const FindTeammates = lazy(() => import("./FindTeammates.jsx"));
+const Requests = lazy(() => import("./Requests.jsx"));
+const Connections = lazy(() => import("./Connections.jsx"));
+const AboutUs = lazy(() => import("./AboutUs.jsx"));
+const Groups = lazy(() => import("./Groups.jsx"));
 
 
 function App() {

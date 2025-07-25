@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { db, auth } from "./firebase";
+import { db, auth } from "./firebase.js";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import ChatPopup from "./ChatPopup"; // Import ChatPopup
+import ChatPopup from "./ChatPopup.jsx"; // Import ChatPopup
 import "./Groups.css";
 
 const Groups = () => {
